@@ -1,16 +1,35 @@
 import React from 'react'
 import Instructor from '../Components/Instructor'
+import Form from '../Components/Form'
 
-function InstructorContainer(props){
+class InstructorContainer extends React.Component {
+    state = {
+        instructors: [{id:1, name:"Steven", mod: 3},{id:2, name:"Caryn", mod: 1}, {id:3, name:"Greg", mod: 2}, {id:4, name:"Tashawn", mod: 4}]
+    }
 
-    const instructor_names = [{id:1, name:"Steven"},{id:2, name:"Caryn"}, {id:3, name:"Greg"}, {id:4, name:"Tashawn"}]
+    
+    submitHandler = (obj) => {
+        console.log("old state", this.state.instructors)
+        
+        let newArray = [ ...this.state.instructors, obj ]
+        this.setState({ instructors: newArray })
+        console.log("new state", newArray)
+        
+        
+    }
+    
+    render(){
+        
 
-    let instructors = instructor_names.map(instructorObj => <Instructor key={instructorObj} instructor={instructorObj} appClickHandler={props.appClickHandler}/>)
-    return (
-        <>
-        {instructors}
-        </>
-    )
+        let instructors = this.state.instructors.map(instructorObj => <Instructor key={instructorObj} instructor={instructorObj} appClickHandler={this.props.appClickHandler}/>)
+        return (
+            <>
+            <Form submitHandler={this.submitHandler}/>
+            {instructors}
+            </>
+        )
+
+    }
 
 }
 
